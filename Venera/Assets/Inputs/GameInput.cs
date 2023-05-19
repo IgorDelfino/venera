@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,6 +10,9 @@ namespace Venera
     [RequireComponent(typeof(PlayerInput))]
     public class GameInput : MonoBehaviour
     {
+
+        public event EventHandler OnInteractAction;
+
         private PlayerInputActions playerInputActions;
 
         [Header("Character Input Values")]
@@ -24,6 +28,13 @@ namespace Venera
         {
             playerInputActions = new PlayerInputActions();
             playerInputActions.Player.Enable();
+
+            playerInputActions.Player.Interact.performed += Interact_performed;
+        }
+
+        private void Interact_performed(InputAction.CallbackContext obj)
+        {
+            OnInteractAction?.Invoke(this, EventArgs.Empty);
         }
 
         public Vector2 GetMove()

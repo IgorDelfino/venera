@@ -6,9 +6,10 @@ using UnityEngine;
 
 namespace Venera
 {
-    [RequireComponent(typeof(GameInput))]
     public class DroneController : BaseRigidbody
     {
+        [SerializeField] private GameInput gameInput;
+
         [Header("Control Properties")]
         [SerializeField] private float minMaxPitch = 30f;
         [SerializeField] private float minMAxRoll = 30f;
@@ -25,19 +26,7 @@ namespace Venera
         public float SpeedPower { get => speedPower; }
         public float PropRotSpeed { get => propRotSpeed; }
         public bool SetVerticalStabilization { get => setVerticalStabilization; }
-
-
-        [Header("Camera Properties")]
-        [SerializeField] private CinemachineVirtualCamera vc;
-        [SerializeField] private float baseFov = 40f;
-        [SerializeField] private float minMaxFov = 10f;
-        [SerializeField] private float fovMax = 80f;
-        [SerializeField] private float fovMin = 35f;
-        [SerializeField] private float endFov;
-        [SerializeField] private float fovLerpTime = 2f;
-        private float fovCurrentVelocity = 0f;
-
-        private GameInput gameInput;
+     
         private List<IEngine> engines = new List<IEngine>();
 
         public int EngineCount { get => engines.Count; }
@@ -51,14 +40,8 @@ namespace Venera
 
         private void Start()
         {
-            gameInput = GetComponent<GameInput>();
+            //gameInput = GetComponent<GameInput>();
             engines = GetComponentsInChildren<IEngine>().ToList<IEngine>();
-        }
-
-        private void LateUpdate()
-        {
-            HandleCamera();
-
         }
 
         protected override void HandlePhysics()
@@ -89,15 +72,6 @@ namespace Venera
             Quaternion rotation = Quaternion.Euler(finalPitch, finalYaw, finalRoll);
 
             rb.MoveRotation(rotation);
-        }
-
-        private void HandleCamera()
-        {
-            endFov = baseFov + (gameInput.GetMove().y * minMaxFov);
-            endFov = Mathf.Clamp(endFov, fovMin, fovMax);
-
-            //vc.m_Lens.FieldOfView = Mathf.Lerp(vc.m_Lens.FieldOfView, endFov, Time.deltaTime * fovLerpSpeed);
-            vc.m_Lens.FieldOfView = Mathf.SmoothDamp(vc.m_Lens.FieldOfView,endFov,ref fovCurrentVelocity,fovLerpTime);
         }
     }
 }
