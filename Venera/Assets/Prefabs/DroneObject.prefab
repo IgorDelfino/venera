@@ -441,6 +441,7 @@ GameObject:
   - component: {fileID: 2146310647055031669}
   - component: {fileID: 4109537481820599090}
   - component: {fileID: 3242065757095407841}
+  - component: {fileID: 4598296056841635599}
   m_Layer: 0
   m_Name: DroneObject
   m_TagString: Untagged
@@ -464,7 +465,7 @@ Transform:
   - {fileID: 2668946897399582883}
   - {fileID: 2660479878639979911}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3198325092862187660
 Rigidbody:
@@ -548,6 +549,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameInput: {fileID: 0}
   interactDistance: 2
+--- !u!114 &4598296056841635599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632127323492635034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a693247dbcb5984fa7db67c10cc3e1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4650616099084903336
 GameObject:
   m_ObjectHideFlags: 0

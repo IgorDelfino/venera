@@ -21,29 +21,20 @@ namespace Venera
             throw new System.NotImplementedException();
         }
 
-        public void UpdateEngine(Rigidbody rb, GameInput gameInput)
+        public void UpdateEngine(Rigidbody rb)
         {
-            HandleForce(rb, gameInput);
+            HandleForce(rb);
 
             HandlePropellers();
         }
 
-        private void HandleForce(Rigidbody rb, GameInput gameInput)
+        private void HandleForce(Rigidbody rb)
         {
             Vector3 engineForce = Vector3.zero;
 
-            engineForce = transform.up * ((rb.mass * (Physics.gravity.magnitude)) + (gameInput.GetVertical() * controller.MaxPower));
-            engineForce += ((transform.forward * (gameInput.GetMove().y * controller.SpeedPower)) + (transform.right * (gameInput.GetMove().x * controller.SpeedPower)));
-
-            if (controller.SetVerticalStabilization)
-            {
-                engineForce.y = ((rb.mass * (Physics.gravity.magnitude)) + (gameInput.GetVertical() * controller.MaxPower));
-            }
-                
-
-            //Vector3 diff = new Vector3(0f, (engineForce.magnitude - engineForce.y), 0f);
-
-            //engineForce += diff;
+            engineForce = transform.up * ((rb.mass * (Physics.gravity.magnitude)) + (GameInput.Instance.GetVertical() * controller.MaxPower));
+            engineForce += ((transform.forward * (GameInput.Instance.GetMove().y * controller.SpeedPower)) + (transform.right * (GameInput.Instance.GetMove().x * controller.SpeedPower)));
+            
 
             rb.AddForce(engineForce/controller.EngineCount, ForceMode.Force);
         }

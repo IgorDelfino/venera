@@ -7,7 +7,6 @@ namespace Venera
     [RequireComponent(typeof(DroneController))]
     public class DronePickUp : MonoBehaviour
     {
-        [SerializeField] private GameInput gameInput;
         [SerializeField] private float interactDistance = 2f;
 
         private PickUpObj selectedPickUp;
@@ -16,7 +15,7 @@ namespace Venera
 
         private void Start()
         {
-            gameInput.OnInteractAction += GameInput_OnInteractAction;
+            GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
         }
 
         private void GameInput_OnInteractAction(object sender, System.EventArgs e)

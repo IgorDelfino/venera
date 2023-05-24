@@ -14,9 +14,10 @@ namespace Venera
 
         private void Awake()
         {
+            Time.timeScale = 1f;
             playButton.onClick.AddListener(() =>
             {
-                Loader.Load(Loader.Scene.SampleScene);
+                Loader.Load(Loader.Scene.GameScene);
             });
 
             quitButton.onClick.AddListener(() =>

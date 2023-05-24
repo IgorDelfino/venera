@@ -11,7 +11,10 @@ namespace Venera
     public class GameInput : MonoBehaviour
     {
 
+        public static GameInput Instance { get; private set; }
+
         public event EventHandler OnInteractAction;
+        public event EventHandler OnPauseAction;
 
         private PlayerInputActions playerInputActions;
 
@@ -26,10 +29,25 @@ namespace Venera
 
         private void Awake()
         {
+            Instance = this;
+
             playerInputActions = new PlayerInputActions();
             playerInputActions.Player.Enable();
 
             playerInputActions.Player.Interact.performed += Interact_performed;
+            playerInputActions.Player.Pause.performed += Pause_performed;
+        }
+
+        private void OnDestroy() {
+            playerInputActions.Player.Interact.performed -= Interact_performed;
+            playerInputActions.Player.Pause.performed -= Pause_performed;
+
+            playerInputActions.Dispose();
+        }
+
+        private void Pause_performed(InputAction.CallbackContext obj)
+        {
+            OnPauseAction?.Invoke(this, EventArgs.Empty);
         }
 
         private void Interact_performed(InputAction.CallbackContext obj)
@@ -57,12 +75,20 @@ namespace Venera
 
         private void OnApplicationFocus(bool hasFocus)
         {
-            SetCursorState(cursorLocked);
+            SetCursorLockState(cursorLocked);
         }
 
-        public void SetCursorState(bool newState)
+        public void SetCursorLockState(bool newState)
         {
             Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+        }
+
+        public void SetPlayerMapEnabled(bool state){
+            if(state){
+                playerInputActions.Player.Enable();
+            } else {
+                playerInputActions.Player.Disable();
+            }
         }
 
     }

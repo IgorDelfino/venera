@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class DroneIntegrity : MonoBehaviour
+namespace Venera
 {
-    // Start is called before the first frame update
-    void Start()
+    public class DroneIntegrity : BaseIntegrity
     {
-        
-    }
+        public event EventHandler OnDamaged;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void Damage(int dmg)
+        {
+            base.Damage(dmg);
+            OnDamaged?.Invoke(this,EventArgs.Empty);
+        }
     }
 }

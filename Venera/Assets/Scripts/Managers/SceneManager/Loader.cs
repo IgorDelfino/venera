@@ -11,8 +11,7 @@ namespace Venera
         {
             MainMenuScene,
             GameScene,
-            LoadingScene,
-            SampleScene
+            LoadingScene
         }
 
         private static Scene targetScene;

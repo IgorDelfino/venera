@@ -7,6 +7,6 @@ namespace Venera
     public interface IEngine 
     {
         void InitEngine();
-        void UpdateEngine(Rigidbody rb, GameInput gameInput);
+        void UpdateEngine(Rigidbody rb);
     }
 }

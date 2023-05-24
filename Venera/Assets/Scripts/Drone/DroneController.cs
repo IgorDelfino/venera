@@ -8,8 +8,6 @@ namespace Venera
 {
     public class DroneController : BaseRigidbody
     {
-        [SerializeField] private GameInput gameInput;
-
         [Header("Control Properties")]
         [SerializeField] private float minMaxPitch = 30f;
         [SerializeField] private float minMAxRoll = 30f;
@@ -20,12 +18,10 @@ namespace Venera
         [SerializeField] private float maxPower = 4f;
         [SerializeField] private float speedPower = 4f;
         [SerializeField] private float propRotSpeed = 300f;
-        [SerializeField] private bool setVerticalStabilization = true;
 
         public float MaxPower { get => maxPower; }
         public float SpeedPower { get => speedPower; }
         public float PropRotSpeed { get => propRotSpeed; }
-        public bool SetVerticalStabilization { get => setVerticalStabilization; }
      
         private List<IEngine> engines = new List<IEngine>();
 
@@ -40,7 +36,6 @@ namespace Venera
 
         private void Start()
         {
-            //gameInput = GetComponent<GameInput>();
             engines = GetComponentsInChildren<IEngine>().ToList<IEngine>();
         }
 
@@ -54,15 +49,15 @@ namespace Venera
         {
             foreach(IEngine engine in engines)
             {
-                engine.UpdateEngine(rb,gameInput);
+                engine.UpdateEngine(rb);
             }
         }
 
         private void HandleControls()
         {
-            lookInput = gameInput.GetLook();
-            float pitch = gameInput.GetMove().y * minMaxPitch;
-            float roll = -gameInput.GetMove().x * minMAxRoll;
+            lookInput = GameInput.Instance.GetLook();
+            float pitch = GameInput.Instance.GetMove().y * minMaxPitch;
+            float roll = -GameInput.Instance.GetMove().x * minMAxRoll;
             yaw += lookInput.x * yawPower;
 
             finalPitch = Mathf.Lerp(finalPitch, pitch, Time.deltaTime * controlsLerpSpeed);

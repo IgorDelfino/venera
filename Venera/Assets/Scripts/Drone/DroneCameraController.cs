@@ -8,7 +8,6 @@ namespace Venera
 {
     public class DroneCameraController : MonoBehaviour
     {
-        [SerializeField] private GameInput gameInput;
         [Header("Camera Properties")]
         [SerializeField] private CinemachineVirtualCamera vc;
         [SerializeField] private float baseFov = 40f;
@@ -36,13 +35,13 @@ namespace Venera
 
         private void HandleCamera()
         {
-            endFov = baseFov + (gameInput.GetMove().y * fovMax);
+            endFov = baseFov + (GameInput.Instance.GetMove().y * fovMax);
             endFov = Mathf.Clamp(endFov, fovMin, fovMax);
 
             vc.m_Lens.FieldOfView = Mathf.SmoothDamp(vc.m_Lens.FieldOfView, endFov, ref fovLerpVelocity, cameraLerpTime);
 
 
-            endNoiseAmplitude = (gameInput.GetMove().y);
+            endNoiseAmplitude = (GameInput.Instance.GetMove().y);
             endNoiseAmplitude = Mathf.Clamp(endNoiseAmplitude, minNoiseAmplitude, maxNoiseAmplitude);
 
             noise.m_AmplitudeGain = Mathf.SmoothDamp(noise.m_AmplitudeGain, endNoiseAmplitude, ref noiseLerpVelocity, cameraLerpTime);
