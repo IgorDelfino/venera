@@ -8,11 +8,11 @@ namespace Venera
     public class PickUpObj : MonoBehaviour
     {
 
-        [SerializeField] private PickUpObjSO pickUpObjectSO;
-        [SerializeField] private GameObject selectedVisual;
-        [SerializeField] private Vector3 positionOffset;
+        [SerializeField] private PickUpObjSO _pickUpObjectSO;
+        [SerializeField] private GameObject _selectedVisual;
+        [SerializeField] private Vector3 _positionOffset;
         
-        private Joint joint;
+        private Joint _joint;
 
         public void PickUp(Transform targetObj)
         {
@@ -21,22 +21,22 @@ namespace Venera
 
         public void DropDown()
         {
-            Destroy(joint);
+            Destroy(_joint);
         }
 
         private void CreateJoint(Transform targetObj)
         {
-            transform.position = targetObj.position - positionOffset;
+            transform.position = targetObj.position - _positionOffset;
 
-            joint = gameObject.AddComponent<FixedJoint>();
-            joint.connectedMassScale = pickUpObjectSO.connectedMassScale;
+            _joint = gameObject.AddComponent<FixedJoint>();
+            _joint.connectedMassScale = _pickUpObjectSO.connectedMassScale;
 
-            joint.connectedBody = targetObj.GetComponent<Rigidbody>();
+            _joint.connectedBody = targetObj.GetComponent<Rigidbody>();
         }
         
         public void SetSelected(bool state)
         {
-            selectedVisual.SetActive(state);
+            _selectedVisual.SetActive(state);
         }
     }
 }

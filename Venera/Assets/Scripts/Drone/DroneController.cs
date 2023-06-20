@@ -9,34 +9,34 @@ namespace Venera
     public class DroneController : BaseRigidbody
     {
         [Header("Control Properties")]
-        [SerializeField] private float minMaxPitch = 30f;
-        [SerializeField] private float minMAxRoll = 30f;
-        [SerializeField] private float yawPower = 4f;
-        [SerializeField] private float controlsLerpSpeed = 2f;
+        [SerializeField] private float _minMaxPitch = 30f;
+        [SerializeField] private float _minMAxRoll = 30f;
+        [SerializeField] private float _yawPower = 4f;
+        [SerializeField] private float _controlsLerpSpeed = 2f;
 
         [Header("Engine Properties")]
-        [SerializeField] private float maxPower = 4f;
-        [SerializeField] private float speedPower = 4f;
-        [SerializeField] private float propRotSpeed = 300f;
+        [SerializeField] private float _maxPower = 4f;
+        [SerializeField] private float _speedPower = 4f;
+        [SerializeField] private float _propRotSpeed = 300f;
 
-        public float MaxPower { get => maxPower; }
-        public float SpeedPower { get => speedPower; }
-        public float PropRotSpeed { get => propRotSpeed; }
+        public float MaxPower { get => _maxPower; }
+        public float SpeedPower { get => _speedPower; }
+        public float PropRotSpeed { get => _propRotSpeed; }
      
-        private List<IEngine> engines = new List<IEngine>();
+        private List<IEngine> _engines = new List<IEngine>();
 
-        public int EngineCount { get => engines.Count; }
+        public int EngineCount { get => _engines.Count; }
 
-        private float finalPitch;
-        private float finalRoll;
-        private float finalYaw=0.0f;
-        private Vector2 lookInput;
-        float yaw=0.0f;
+        private float _finalPitch;
+        private float _finalRoll;
+        private float _finalYaw=0.0f;
+        private Vector2 _lookInput;
+        private float _yaw=0.0f;
 
 
         private void Start()
         {
-            engines = GetComponentsInChildren<IEngine>().ToList<IEngine>();
+            _engines = GetComponentsInChildren<IEngine>().ToList<IEngine>();
         }
 
         protected override void HandlePhysics()
@@ -47,26 +47,26 @@ namespace Venera
 
         private void HandleEngines()
         {
-            foreach(IEngine engine in engines)
+            foreach(IEngine engine in _engines)
             {
-                engine.UpdateEngine(rb);
+                engine.UpdateEngine(_rb);
             }
         }
 
         private void HandleControls()
         {
-            lookInput = GameInput.Instance.GetLook();
-            float pitch = GameInput.Instance.GetMove().y * minMaxPitch;
-            float roll = -GameInput.Instance.GetMove().x * minMAxRoll;
-            yaw += lookInput.x * yawPower;
+            _lookInput = GameInput.Instance.GetLook();
+            float pitch = GameInput.Instance.GetMove().y * _minMaxPitch;
+            float roll = -GameInput.Instance.GetMove().x * _minMAxRoll;
+            _yaw += _lookInput.x * _yawPower;
 
-            finalPitch = Mathf.Lerp(finalPitch, pitch, Time.deltaTime * controlsLerpSpeed);
-            finalRoll = Mathf.Lerp(finalRoll, roll, Time.deltaTime * controlsLerpSpeed);
-            finalYaw = Mathf.Lerp(finalYaw, yaw, Time.deltaTime * controlsLerpSpeed);
+            _finalPitch = Mathf.Lerp(_finalPitch, pitch, Time.deltaTime * _controlsLerpSpeed);
+            _finalRoll = Mathf.Lerp(_finalRoll, roll, Time.deltaTime * _controlsLerpSpeed);
+            _finalYaw = Mathf.Lerp(_finalYaw, _yaw, Time.deltaTime * _controlsLerpSpeed);
 
-            Quaternion rotation = Quaternion.Euler(finalPitch, finalYaw, finalRoll);
+            Quaternion rotation = Quaternion.Euler(_finalPitch, _finalYaw, _finalRoll);
 
-            rb.MoveRotation(rotation);
+            _rb.MoveRotation(rotation);
         }
     }
 }

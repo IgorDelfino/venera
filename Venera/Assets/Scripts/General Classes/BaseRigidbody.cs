@@ -7,22 +7,22 @@ namespace Venera
     [RequireComponent(typeof(Rigidbody))]
     public class BaseRigidbody : MonoBehaviour
     {
-        protected Rigidbody rb;
-        protected float startDrag;
-        protected float startAngularDrag;
-        protected float startMass;
+        protected Rigidbody _rb;
+        protected float _startDrag;
+        protected float _startAngularDrag;
+        protected float _startMass;
 
         private void Awake()
         {
-            rb = GetComponent<Rigidbody>();
-            startDrag = rb.drag;
-            startAngularDrag = rb.angularDrag;
-            startMass = rb.mass;
+            _rb = GetComponent<Rigidbody>();
+            _startDrag = _rb.drag;
+            _startAngularDrag = _rb.angularDrag;
+            _startMass = _rb.mass;
         }
 
         private void FixedUpdate()
         {
-            if (!rb)
+            if (!_rb)
             {
                 return;
             }

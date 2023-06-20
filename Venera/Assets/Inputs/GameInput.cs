@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,33 +13,33 @@ namespace Venera
         public event EventHandler OnInteractAction;
         public event EventHandler OnPauseAction;
 
-        private PlayerInputActions playerInputActions;
+        private PlayerInputActions _playerInputActions;
 
         [Header("Character Input Values")]
-        [SerializeField] private Vector2 move;
-        [SerializeField] private Vector2 look;
-        [SerializeField] private float vertical;
+        [SerializeField] private Vector2 _move;
+        [SerializeField] private Vector2 _look;
+        [SerializeField] private float _vertical;
 
 
         [Header("Mouse Cursor Settings")]
-        [SerializeField] private bool cursorLocked = true;
+        [SerializeField] private bool _cursorLocked = true;
 
         private void Awake()
         {
             Instance = this;
 
-            playerInputActions = new PlayerInputActions();
-            playerInputActions.Player.Enable();
+            _playerInputActions = new PlayerInputActions();
+            _playerInputActions.Player.Enable();
 
-            playerInputActions.Player.Interact.performed += Interact_performed;
-            playerInputActions.Player.Pause.performed += Pause_performed;
+            _playerInputActions.Player.Interact.performed += Interact_performed;
+            _playerInputActions.Player.Pause.performed += Pause_performed;
         }
 
         private void OnDestroy() {
-            playerInputActions.Player.Interact.performed -= Interact_performed;
-            playerInputActions.Player.Pause.performed -= Pause_performed;
+            _playerInputActions.Player.Interact.performed -= Interact_performed;
+            _playerInputActions.Player.Pause.performed -= Pause_performed;
 
-            playerInputActions.Dispose();
+            _playerInputActions.Dispose();
         }
 
         private void Pause_performed(InputAction.CallbackContext obj)
@@ -57,25 +54,25 @@ namespace Venera
 
         public Vector2 GetMove()
         {
-            move = playerInputActions.Player.Move.ReadValue<Vector2>();
-            return move;
+            _move = _playerInputActions.Player.Move.ReadValue<Vector2>();
+            return _move;
         }
 
         public Vector2 GetLook()
         {
-            look = playerInputActions.Player.Look.ReadValue<Vector2>();
-            return look;
+            _look = _playerInputActions.Player.Look.ReadValue<Vector2>();
+            return _look;
         }
 
         public float GetVertical()
         {
-            vertical = playerInputActions.Player.Vertical.ReadValue<float>();
-            return vertical;
+            _vertical = _playerInputActions.Player.Vertical.ReadValue<float>();
+            return _vertical;
         }
 
         private void OnApplicationFocus(bool hasFocus)
         {
-            SetCursorLockState(cursorLocked);
+            SetCursorLockState(_cursorLocked);
         }
 
         public void SetCursorLockState(bool newState)
@@ -85,9 +82,9 @@ namespace Venera
 
         public void SetPlayerMapEnabled(bool state){
             if(state){
-                playerInputActions.Player.Enable();
+                _playerInputActions.Player.Enable();
             } else {
-                playerInputActions.Player.Disable();
+                _playerInputActions.Player.Disable();
             }
         }
 

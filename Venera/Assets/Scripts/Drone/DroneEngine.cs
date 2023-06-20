@@ -7,13 +7,13 @@ namespace Venera
     [RequireComponent(typeof(BoxCollider))]
     public class DroneEngine : MonoBehaviour, IEngine
     {
-        private DroneController controller;
+        private DroneController _controller;
 
-        [SerializeField] private Transform propeller;
+        [SerializeField] private Transform _propeller;
 
         private void Awake()
         {
-            controller = GetComponentInParent<DroneController>();
+            _controller = GetComponentInParent<DroneController>();
         }
 
         public void InitEngine()
@@ -32,18 +32,18 @@ namespace Venera
         {
             Vector3 engineForce = Vector3.zero;
 
-            engineForce = transform.up * ((rb.mass * (Physics.gravity.magnitude)) + (GameInput.Instance.GetVertical() * controller.MaxPower));
-            engineForce += ((transform.forward * (GameInput.Instance.GetMove().y * controller.SpeedPower)) + (transform.right * (GameInput.Instance.GetMove().x * controller.SpeedPower)));
+            engineForce = transform.up * ((rb.mass * (Physics.gravity.magnitude)) + (GameInput.Instance.GetVertical() * _controller.MaxPower));
+            engineForce += ((transform.forward * (GameInput.Instance.GetMove().y * _controller.SpeedPower)) + (transform.right * (GameInput.Instance.GetMove().x * _controller.SpeedPower)));
             
 
-            rb.AddForce(engineForce/controller.EngineCount, ForceMode.Force);
+            rb.AddForce(engineForce/_controller.EngineCount, ForceMode.Force);
         }
 
         private void HandlePropellers()
         {
-            if (!propeller) return;
+            if (!_propeller) return;
 
-            propeller.Rotate(Vector3.up, controller.PropRotSpeed);
+            _propeller.Rotate(Vector3.up, _controller.PropRotSpeed);
         }
     }
 }

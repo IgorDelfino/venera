@@ -7,18 +7,18 @@ using UnityEngine.UI;
 namespace Venera {
     public class GamePauseUI : MonoBehaviour
     {
-        [SerializeField] private Button resumeButton;
-        [SerializeField] private Button mainMenuButton;
-        [SerializeField] private Button quitButton;
+        [SerializeField] private Button _resumeButton;
+        [SerializeField] private Button _mainMenuButton;
+        [SerializeField] private Button _quitButton;
 
         private void Awake() {
-            resumeButton.onClick.AddListener(() => {
+            _resumeButton.onClick.AddListener(() => {
                 GameManager.Instance.TogglePause();
             });
-            mainMenuButton.onClick.AddListener(() => {
+            _mainMenuButton.onClick.AddListener(() => {
                 Loader.Load(Loader.Scene.MainMenuScene);
             });
-            quitButton.onClick.AddListener(() => {
+            _quitButton.onClick.AddListener(() => {
                 Application.Quit();
             });
         }

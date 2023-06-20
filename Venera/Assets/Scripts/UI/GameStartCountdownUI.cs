@@ -5,7 +5,7 @@ namespace Venera
 {
     public class GameStartCountdownUI : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI countdownText;
+        [SerializeField] private TextMeshProUGUI _countdownText;
 
         private void Start() {
             GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
@@ -20,7 +20,7 @@ namespace Venera
         }
 
         private void Update() {
-            countdownText.text = GameManager.Instance.CountdownToStartTimer.ToString("#");
+            _countdownText.text = GameManager.Instance.CountdownToStartTimer.ToString("#");
         }
 
         private void Show(){

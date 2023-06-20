@@ -7,10 +7,10 @@ namespace Venera
     [RequireComponent(typeof(DroneController))]
     public class DronePickUp : MonoBehaviour
     {
-        [SerializeField] private float interactDistance = 2f;
+        [SerializeField] private float _interactDistance = 2f;
 
-        private PickUpObj selectedPickUp;
-        private PickUpObj holdingPickUp;
+        private PickUpObj _selectedPickUp;
+        private PickUpObj _holdingPickUp;
         
 
         private void Start()
@@ -20,17 +20,17 @@ namespace Venera
 
         private void GameInput_OnInteractAction(object sender, System.EventArgs e)
         {
-            if(selectedPickUp != null)
+            if(_selectedPickUp != null)
             {
-                if (holdingPickUp == null)
+                if (_holdingPickUp == null)
                 {
-                    holdingPickUp = selectedPickUp;
-                    holdingPickUp.PickUp(transform);
+                    _holdingPickUp = _selectedPickUp;
+                    _holdingPickUp.PickUp(transform);
                 }
                 else
                 {
-                    holdingPickUp.DropDown();
-                    holdingPickUp = null;
+                    _holdingPickUp.DropDown();
+                    _holdingPickUp = null;
                 }
             }
         }
@@ -42,32 +42,32 @@ namespace Venera
 
         public void HandleInteractions()
         {
-            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit raycastHit, interactDistance))
+            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit raycastHit, _interactDistance))
             {
                 if (raycastHit.transform.TryGetComponent(out PickUpObj objectPickUp))
                 {
-                    if(objectPickUp != selectedPickUp)
+                    if(objectPickUp != _selectedPickUp)
                     {
-                        selectedPickUp = objectPickUp;
-                        selectedPickUp.SetSelected(true);
+                        _selectedPickUp = objectPickUp;
+                        _selectedPickUp.SetSelected(true);
                     }
                 } else
                 {
-                    selectedPickUp?.SetSelected(false);
-                    selectedPickUp = null;
+                    _selectedPickUp?.SetSelected(false);
+                    _selectedPickUp = null;
                 }
             } else
             {
-                selectedPickUp?.SetSelected(false);
-                selectedPickUp = null;
+                _selectedPickUp?.SetSelected(false);
+                _selectedPickUp = null;
             }
 
-            if (holdingPickUp != null)
+            if (_holdingPickUp != null)
             {
-                holdingPickUp.SetSelected(false); 
+                _holdingPickUp.SetSelected(false); 
             }
 
-            Debug.DrawRay(transform.position, Vector3.down * interactDistance, Color.green, 0.2f);
+            Debug.DrawRay(transform.position, Vector3.down * _interactDistance, Color.green, 0.2f);
         }
     }
 }

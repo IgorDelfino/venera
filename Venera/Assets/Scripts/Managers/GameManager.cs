@@ -16,19 +16,19 @@ namespace Venera
             GameOver
         }
 
-        private State state;
-        private float countdownToStartTimer = 3f;
+        private State _state;
+        private float _countdownToStartTimer = 3f;
 
-        public float CountdownToStartTimer { get => countdownToStartTimer; }
+        public float CountdownToStartTimer { get => _countdownToStartTimer; }
 
-        [SerializeField] private DroneIntegrity droneIntegrity;
+        [SerializeField] private DroneIntegrity _droneIntegrity;
 
-        private bool isGamePaused = false;
+        private bool _isGamePaused = false;
 
         private void Awake() {
             Instance = this;
 
-            state = State.CountdownToStart;
+            _state = State.CountdownToStart;
             GameInput.Instance.SetPlayerMapEnabled(false);
 
             Time.timeScale = 1f;
@@ -42,7 +42,7 @@ namespace Venera
         }
 
         private void Update() {
-            switch (state){
+            switch (_state){
                 case State.CountdownToStart:
                     CountdownToStartActions();
                     break;
@@ -58,9 +58,9 @@ namespace Venera
         }
 
         private void CountdownToStartActions(){
-            countdownToStartTimer -= Time.deltaTime;
-            if(countdownToStartTimer < 0f) {
-                state = State.GamePlaying;
+            _countdownToStartTimer -= Time.deltaTime;
+            if(_countdownToStartTimer < 0f) {
+                _state = State.GamePlaying;
                 OnStateChanged?.Invoke(this, EventArgs.Empty);
 
                 GameInput.Instance.SetPlayerMapEnabled(true);
@@ -68,13 +68,13 @@ namespace Venera
         }
 
         private void GamePlayingActions(){
-            if(droneIntegrity.health.CurrentHealth <= 0){
+            if(_droneIntegrity.health.CurrentHealth <= 0){
                 SetGameOver();
             }
         }
 
         private void SetGameOver(){
-            state = State.GameOver;
+            _state = State.GameOver;
             OnStateChanged?.Invoke(this, EventArgs.Empty);
             
             Time.timeScale = 0f;
@@ -82,23 +82,23 @@ namespace Venera
         }
 
         public bool IsCountdownToStartActive(){
-            return state == State.CountdownToStart;
+            return _state == State.CountdownToStart;
         }
         public bool IsGamePlaying(){
-            return state == State.GamePlaying;
+            return _state == State.GamePlaying;
         }
 
         public bool IsGameOver(){
-            return state == State.GameOver;
+            return _state == State.GameOver;
         }
 
         public bool IsGamePaused(){
-            return isGamePaused;
+            return _isGamePaused;
         }
 
         public void TogglePause(){
-            isGamePaused = !isGamePaused;
-            if(isGamePaused){
+            _isGamePaused = !_isGamePaused;
+            if(_isGamePaused){
                 Time.timeScale = 0f;
             } else {
                 Time.timeScale = 1f;

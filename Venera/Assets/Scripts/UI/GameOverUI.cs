@@ -7,18 +7,18 @@ namespace Venera
 {
     public class GameOverUI : MonoBehaviour
     {
-        [SerializeField] private Button retryButton;
-        [SerializeField] private Button mainMenuButton;
-        [SerializeField] private Button quitButton;
+        [SerializeField] private Button _retryButton;
+        [SerializeField] private Button _mainMenuButton;
+        [SerializeField] private Button _quitButton;
 
         private void Awake() {
-            retryButton.onClick.AddListener(() => {
+            _retryButton.onClick.AddListener(() => {
                 Loader.Load(Loader.Scene.GameScene);
             });
-            mainMenuButton.onClick.AddListener(() => {
+            _mainMenuButton.onClick.AddListener(() => {
                 Loader.Load(Loader.Scene.MainMenuScene);
             });
-            quitButton.onClick.AddListener(() => {
+            _quitButton.onClick.AddListener(() => {
                 Application.Quit();
             });
         }

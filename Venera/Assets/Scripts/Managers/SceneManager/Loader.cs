@@ -14,19 +14,19 @@ namespace Venera
             LoadingScene
         }
 
-        private static Scene targetScene;
+        private static Scene _targetScene;
 
 
         public static void Load(Scene targetScene)
         {
-            Loader.targetScene = targetScene;
+            Loader._targetScene = targetScene;
 
             SceneManager.LoadScene(Scene.LoadingScene.ToString());
         }
 
         public static void LoaderCallback()
         {
-            SceneManager.LoadScene(targetScene.ToString());
+            SceneManager.LoadScene(_targetScene.ToString());
         }
     }
 }

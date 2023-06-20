@@ -7,15 +7,15 @@ namespace Venera
 {
     public class HealthUI : MonoBehaviour
     {
-        [SerializeField] private DroneIntegrity droneIntegrity;
-        [SerializeField] private TextMeshProUGUI healthText;
+        [SerializeField] private DroneIntegrity _droneIntegrity;
+        [SerializeField] private TextMeshProUGUI _healthText;
         void Start()
         {
-            droneIntegrity.OnDamaged += DroneIntegrity_OnDamaged;
+            _droneIntegrity.OnDamaged += DroneIntegrity_OnDamaged;
         }
 
         private void DroneIntegrity_OnDamaged(object sender, System.EventArgs e){
-            healthText.text = (droneIntegrity.health.HealthPercent + "%");
+            _healthText.text = (_droneIntegrity.health.HealthPercent + "%");
         }
     }
 }
