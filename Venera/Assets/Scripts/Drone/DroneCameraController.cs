@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System.Linq;
+using Unity.VisualScripting;
 
 namespace Venera
 {
@@ -21,6 +22,10 @@ namespace Venera
         private float _fovLerpVelocity = 0f;
         private float _noiseLerpVelocity = 0f;
         private CinemachineBasicMultiChannelPerlin _noise;
+
+        private void Awake() {
+            _vc = FindObjectOfType<CinemachineVirtualCamera>();
+        }
 
         private void Start()
         {

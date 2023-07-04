@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822733dce2ba3234da80ebd879a7fb62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  propeller: {fileID: 3390612341510953058}
+  _propeller: {fileID: 3390612341510953058}
 --- !u!96 &7715047447442513560
 TrailRenderer:
   serializedVersion: 3
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822733dce2ba3234da80ebd879a7fb62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  propeller: {fileID: 332439814159873090}
+  _propeller: {fileID: 332439814159873090}
 --- !u!96 &6551268638283389202
 TrailRenderer:
   serializedVersion: 3
@@ -506,15 +506,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86839fc34ce178848bf27403e0d06003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInput: {fileID: 0}
-  minMaxPitch: 30
-  minMAxRoll: 30
-  yawPower: 4
-  controlsLerpSpeed: 2
-  maxPower: 5
-  speedPower: 3
-  propRotSpeed: 300
-  setVerticalStabilization: 0
+  _minMaxPitch: 30
+  _minMAxRoll: 30
+  _yawPower: 4
+  _controlsLerpSpeed: 2
+  _maxPower: 4
+  _speedPower: 4
+  _propRotSpeed: 300
 --- !u!114 &4109537481820599090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,14 +525,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512a12232614dd1468c7633b2403036c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInput: {fileID: 0}
-  vc: {fileID: 0}
-  baseFov: 40
-  fovMax: 60
-  fovMin: 35
-  cameraLerpTime: 2
-  minNoiseAmplitude: 0
-  maxNoiseAmplitude: 0.2
+  _vc: {fileID: 0}
+  _baseFov: 40
+  _fovMax: 80
+  _fovMin: 35
+  _cameraLerpTime: 2
+  _minNoiseAmplitude: 0
+  _maxNoiseAmplitude: 0.2
 --- !u!114 &3242065757095407841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,8 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 243e6ae6211f6ce4894a4c1a956da630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInput: {fileID: 0}
-  interactDistance: 2
+  _interactDistance: 2
 --- !u!114 &4598296056841635599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,6 +557,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a693247dbcb5984fa7db67c10cc3e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startHealth: 1000
+  _collisionCutoff: 50
+  _dmgMultiplier: 1
 --- !u!1 &4650616099084903336
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822733dce2ba3234da80ebd879a7fb62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  propeller: {fileID: 6624140942075428028}
+  _propeller: {fileID: 6624140942075428028}
 --- !u!96 &4108004750550684316
 TrailRenderer:
   serializedVersion: 3
@@ -809,7 +808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822733dce2ba3234da80ebd879a7fb62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  propeller: {fileID: 371305566235400538}
+  _propeller: {fileID: 371305566235400538}
 --- !u!96 &8706857557003395559
 TrailRenderer:
   serializedVersion: 3

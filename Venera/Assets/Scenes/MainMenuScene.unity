@@ -874,10 +874,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a0b71a27111d7418fdfc7c9872830d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playButton: {fileID: 954031239}
-  optionsButton: {fileID: 1271582437}
-  creditsButton: {fileID: 423896688}
-  quitButton: {fileID: 1021363145}
+  _playButton: {fileID: 954031239}
+  _optionsButton: {fileID: 1271582437}
+  _creditsButton: {fileID: 423896688}
+  _quitButton: {fileID: 1021363145}
 --- !u!1 &954031237
 GameObject:
   m_ObjectHideFlags: 0

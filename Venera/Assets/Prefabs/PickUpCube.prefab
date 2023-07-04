@@ -147,9 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab4a36d03d24a64e9e27160aa21d376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpObjectSO: {fileID: 11400000, guid: 5fcc2d1246816ac4cbeeaf8e09f8260a, type: 2}
-  selectedVisual: {fileID: 8212402805815825601}
-  positionOffset: {x: 0, y: 0.7, z: 0}
+  _pickUpObjectSO: {fileID: 11400000, guid: 5fcc2d1246816ac4cbeeaf8e09f8260a, type: 2}
+  _selectedVisual: {fileID: 8212402805815825601}
+  _positionOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &7994059412633757665
 GameObject:
   m_ObjectHideFlags: 0
