@@ -13,15 +13,23 @@ namespace Venera
         private enum State {
             CountdownToStart,
             GamePlaying,
-            GameOver
+            GameOver,
+            GameWon
         }
+
+        [Header("Drone atributes")]
+        [SerializeField] private DroneIntegrity _droneIntegrity;
+        [SerializeField] private int _passiveDamage = 5;
+
+        [Header("Win Condition")]
+        [SerializeField] private DeployArea _deployArea;
 
         private State _state;
         private float _countdownToStartTimer = 3f;
 
         public float CountdownToStartTimer { get => _countdownToStartTimer; }
 
-        [SerializeField] private DroneIntegrity _droneIntegrity;
+        
 
         private bool _isGamePaused = false;
 
@@ -35,10 +43,31 @@ namespace Venera
         }
         private void Start() {
             GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+            _droneIntegrity.OnKilled += DroneIntegrity_OnKilled;
+            TimeTickSystem.OnTick_5 += TimeTickSystem_OnTick_5;
+            _deployArea.OnWin += DeployArea_OnWin;
         }
 
         private void GameInput_OnPauseAction(object sender, EventArgs e){
             TogglePause();
+        }
+
+        private void DroneIntegrity_OnKilled(object sender, EventArgs e){
+            if(_state == State.GamePlaying){
+                SetGameOver();
+            }
+        }
+
+        private void TimeTickSystem_OnTick_5(object sender, EventArgs e){
+            if(_state == State.GamePlaying){
+                _droneIntegrity.Damage(_passiveDamage);
+            }
+        }
+
+        private void DeployArea_OnWin(object sender, EventArgs e){
+            if(_state == State.GamePlaying){
+                SetWin();
+            }
         }
 
         private void Update() {
@@ -54,6 +83,10 @@ namespace Venera
                 case State.GameOver:
                     
                     break;
+
+                case State.GameWon:
+
+                    break;
             }
         }
 
@@ -68,9 +101,10 @@ namespace Venera
         }
 
         private void GamePlayingActions(){
+            /*
             if(_droneIntegrity.health.CurrentHealth <= 0){
                 SetGameOver();
-            }
+            }*/
         }
 
         private void SetGameOver(){
@@ -79,6 +113,13 @@ namespace Venera
             
             Time.timeScale = 0f;
             GameInput.Instance.SetPlayerMapEnabled(false);
+        }
+
+        private void SetWin(){
+            _state = State.GameWon;
+            OnStateChanged?.Invoke(this, EventArgs.Empty);
+
+            
         }
 
         public bool IsCountdownToStartActive(){

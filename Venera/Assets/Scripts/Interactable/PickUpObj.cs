@@ -10,13 +10,17 @@ namespace Venera
 
         [SerializeField] private PickUpObjSO _pickUpObjectSO;
         [SerializeField] private GameObject _selectedVisual;
-        [SerializeField] private Vector3 _positionOffset;
+        private Vector3 _positionOffset;
         
         private Joint _joint;
+        private void Awake() {
+            float height = transform.localScale.y * GetComponent<BoxCollider>().size.y;
+            _positionOffset = new Vector3(0,height/2,0);
+        }
 
-        public void PickUp(Transform targetObj)
+        public void PickUp(Transform targetObj, Vector3 ObjPositionOffset)
         {
-            CreateJoint(targetObj);
+            CreateJoint(targetObj, ObjPositionOffset);
         }
 
         public void DropDown()
@@ -24,9 +28,9 @@ namespace Venera
             Destroy(_joint);
         }
 
-        private void CreateJoint(Transform targetObj)
+        private void CreateJoint(Transform targetObj, Vector3 objPositionOffset)
         {
-            transform.position = targetObj.position - _positionOffset;
+            transform.position = targetObj.position - (_positionOffset + objPositionOffset);
 
             _joint = gameObject.AddComponent<FixedJoint>();
             _joint.connectedMassScale = _pickUpObjectSO.connectedMassScale;
