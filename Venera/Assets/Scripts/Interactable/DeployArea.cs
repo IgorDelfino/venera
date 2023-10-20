@@ -4,60 +4,63 @@ using System.Collections.Generic;
 using UnityEngine;
 using Venera;
 
-public class DeployArea : MonoBehaviour
+namespace Venera
 {
-    public event EventHandler OnWin;
+    public class DeployArea : MonoBehaviour
+    {
+        public event EventHandler OnWin;
 
-    [Serializable]
-    private class WinObject{
-        public PickUpObj pickUpObj;
-        public bool isCollected;
-    }
-    [SerializeField] private List<WinObject> _winObjects;
-
-    private void OnTriggerEnter(Collider col) {
-        if (col.TryGetComponent(out PickUpObj pickUpObj)){
-            Debug.Log("inside");
-            AddObject(pickUpObj);
+        [Serializable]
+        private class WinObject{
+            public PickUpObj pickUpObj;
+            public bool isCollected;
         }
-    }
+        [SerializeField] private List<WinObject> _winObjects;
 
-    private void OnTriggerExit(Collider col) {
-        if (col.TryGetComponent(out PickUpObj pickUpObj)){
-            Debug.Log("outside");
-            RemoveObject(pickUpObj);
-        }
-    }
-
-    void AddObject(PickUpObj pickUpObj){
-        for(int i=0; i< _winObjects.Count; i++){
-            if(_winObjects[i].pickUpObj == pickUpObj){
-                _winObjects[i].isCollected = true;
-
-                CheckWin();
-
-                return;
-            }
-        }
-    }
-
-    void RemoveObject(PickUpObj pickUpObj){
-        for(int i=0; i< _winObjects.Count; i++){
-            if(_winObjects[i].pickUpObj == pickUpObj){
-                _winObjects[i].isCollected = false;
-                return;
-            }
-        }
-    }
-
-    void CheckWin(){
-        for(int i=0; i< _winObjects.Count; i++){
-            if(_winObjects[i].isCollected == false){
-                return;
+        private void OnTriggerEnter(Collider col) {
+            if (col.TryGetComponent(out PickUpObj pickUpObj)){
+                Debug.Log("inside");
+                AddObject(pickUpObj);
             }
         }
 
-        Debug.Log("WIN!!!");
-        OnWin?.Invoke(this, EventArgs.Empty);
+        private void OnTriggerExit(Collider col) {
+            if (col.TryGetComponent(out PickUpObj pickUpObj)){
+                Debug.Log("outside");
+                RemoveObject(pickUpObj);
+            }
+        }
+
+        void AddObject(PickUpObj pickUpObj){
+            for(int i=0; i< _winObjects.Count; i++){
+                if(_winObjects[i].pickUpObj == pickUpObj){
+                    _winObjects[i].isCollected = true;
+
+                    CheckWin();
+
+                    return;
+                }
+            }
+        }
+
+        void RemoveObject(PickUpObj pickUpObj){
+            for(int i=0; i< _winObjects.Count; i++){
+                if(_winObjects[i].pickUpObj == pickUpObj){
+                    _winObjects[i].isCollected = false;
+                    return;
+                }
+            }
+        }
+
+        void CheckWin(){
+            for(int i=0; i< _winObjects.Count; i++){
+                if(_winObjects[i].isCollected == false){
+                    return;
+                }
+            }
+
+            Debug.Log("WIN!!!");
+            OnWin?.Invoke(this, EventArgs.Empty);
+        }
     }
 }
